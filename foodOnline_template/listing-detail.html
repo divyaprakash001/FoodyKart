@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Listing Detail</title>
+		<!-- Google Font Family Link Start -->
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800">
+		<!-- Google Font Family Link End -->
+		<!-- Bootstrap Link Start-->
+		<link href="assets/css/bootstrap.css" rel="stylesheet">
+		<link href="assets/css/bootstrap-theme.css" rel="stylesheet">
+		<link href="assets/css/bootstrap-datepicker.css" rel="stylesheet">
+		<link href="assets/css/bootstrap-slider.css" rel="stylesheet">
+		<!-- Bootstrap Link End-->
+		<!-- Iconmoon Link Start-->
+		<link href="assets/css/iconmoon.css" rel="stylesheet">
+		<!-- Iconmoon Link End-->
+		<!-- Animate Link Start-->
+		<link href="assets/css/animate.css" rel="stylesheet">
+		<!-- Animate Link End-->
+		<!-- Chosen Link Start-->
+		<link href="assets/css/chosen.css" rel="stylesheet">
+		<!-- Chosen Link End-->
+		<!-- Swiper Link Start-->
+		<link href="assets/css/swiper.css" rel="stylesheet">
+		<!-- Swiper Link End-->
+		<!-- Woocommerce Link Start-->
+		<link href="assets/css/woocommerce.css" rel="stylesheet">
+		<!-- Woocommerce Link End-->
+		<!-- Pretty Photo Link Start-->
+		<link href="assets/css/prettyPhoto.css" rel="stylesheet">
+		<!-- Pretty Photo Link End-->
+		<!-- Jquery UI Link Start-->
+		<link href="assets/css/jquery-ui.css" rel="stylesheet">
+		<!-- Jquery UI Link End-->
+		<!-- Themes / plugin Link Start-->
+		<link href="style.css" rel="stylesheet">
+		<link href="assets/css/cs-foodbakery-plugin.css" rel="stylesheet">
+		<link href="assets/css/color.css" rel="stylesheet">
+		<link href="assets/css/widget.css" rel="stylesheet">
+		<link href="assets/css/responsive.css" rel="stylesheet">
+		<link href="assets/css/rtl.css" rel="stylesheet">
+		<!-- Themes / plugin Link End-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="assets/js/modernizr.js"></script>
+		<script src="assets/js/bootstrap.js"></script>
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<style>
+			.mapouter {
+				position: relative;
+				text-align: right;
+				height: 180px;
+				width: 100%;
+			}
+
+			.gmap_canvas {
+				overflow: hidden;
+				background: none !important;
+				height: 180px;
+				width: 100%;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<!--Main Wrapper-->
+		<div class="wrapper">
+			<!-- Header Start -->
+			<header id="header">
+				<div class="main-header">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+								<div class="logo">
+									<figure>
+										<a href="index.html" class="light-logo">
+											<img src="assets/extra-images/main-logo.png" alt="FoodBakery">
+										</a>
+									</figure>
+								</div>
+								<div class="main-nav">
+									<nav id="site-navigation" class="main-navigation">
+										<ul>
+											<li>
+												<a href="#">Demos</a>
+												<ul>
+													<li><a href="index.html">Food Bakery</a></li>
+													<li><a href="mexican-restaurant.html">Mexican Restaurant</a></li>
+													<li><a href="foodstop.html">Food Stop</a></li>
+													<li><a href="rtl.html">Rtl Demo</a></li>
+													<li><a href="food-cout.html">Food Court</a></li>
+													<li><a href="single-restaurant.html">Single Restaurant Demo</a></li>
+												</ul>
+												<!--End Sub Menu -->
+											</li>
+											<li><a href="listings.html">Restaurants</a></li>
+											<li>
+												<a href="#">Pages</a>
+												<ul>
+													<li><a href="price-plans.html">Price Plans</a></li>
+													<li><a href="how-it-works.html">How it works</a></li>
+													<li><a href="faq.html">FAQ’s</a></li>
+													<li><a href="404.html">404</a></li>
+													<li><a href="search-result.html">Search Result</a></li>
+													<li><a href="contact-us.html">Contact</a></li>
+												</ul>
+												<!--End Sub Menu -->
+											</li>
+											<li>
+												<a href="#">Blogs</a>
+												<ul>
+													<li><a href="blog-large.html">Blog Large</a></li>
+													<li><a href="blog-medium.html">Blog Medium</a></li>
+													<li><a href="blog-masonry.html">Blog Masonry</a></li>
+													<li><a href="blog-detail.html">Blog Detail Page</a></li>
+												</ul>
+												<!--End Sub Menu -->
+											</li>
+										</ul>
+									</nav><!-- .main-navigation -->
+								</div>
+								<div class="main-location">
+								<ul>
+									<li class="location-has-children choose-location">
+										<form action="#">
+											<input type="text" value="" name="location" placeholder="Enter your delivery location" autocomplete="off">
+											<span id="foodbakery_radius_location_open" class="foodbakery-radius-location"><i class="icon-target5"></i></span>
+										</form>
+										
+									</li>
+								</ul>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="login-option">
+									<a class="cs-color cs-popup-joinus-btn login-popup" data-target="#sign-in" data-toggle="modal" href="#user-register">Login / Register</a><a class="get-start-btn" href="register-restaurant.html">
+										Register
+										Restaurant </a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			<!-- Header End -->
+			<!-- Main Section Start -->
+			<div class="main-section">
+				<div class="page-section restaurant-detail-image-section" style=" background: url(assets/extra-images/cover-photo01.jpg) no-repeat scroll 0 0 / cover;">
+					<!-- Container Start -->
+					<div class="container">
+						<!-- Row Start -->
+						<div class="row">
+							<!-- Column Start -->
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="company-info-detail">
+									<div class="company-info">
+										<div class="img-holder">
+											<figure>
+												<img src="assets/extra-images/listing-logo18.png" alt="">
+											</figure>
+										</div>
+										<div class="text-holder">
+											<span class="restaurant-title">Restaurant Demo</span>
+											<div class="text">
+												<i class="icon-local_pizza"></i>
+												<p>Apple Juice</p>
+											</div>
+										</div>
+									</div>
+									<div class="delivery-timing reviews-sortby">
+										
+										<ul>
+											<li>
+												<a href="#" class="reviews-sortby-active">
+													<span>Today :</span>
+													11:00 am - 11:00 pm <i class="icon-chevron-small-down"></i>
+												</a>
+												<ul class="delivery-dropdown">
+													<li><a href="#"><span class="opend-day">Monday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+																pm</span></a></li>
+													<li><a href="#"><span class="opend-day">Tuesday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+																pm</span></a></li>
+													<li><a href="#"><span class="opend-day">Wednesday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+																pm</span></a></li>
+													<li><a href="#"><span class="opend-day">Thursday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+																pm</span></a></li>
+													<li><a href="#"><span class="opend-day">Friday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+																pm</span></a></li>
+													<li><a href="#"><span class="opend-day">Saturday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+																pm</span></a></li>
+													<li><a href="#"><span class="opend-day">Sunday</span> <span class="opend-time close-day"><small>:</small>Closed</span></a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- Column End -->
+						</div>
+						<!-- Row End -->
+					</div>
+					<!-- Container End -->
+				</div>
+
+				<div class="page-section">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 sticky-sidebar">
+								<div class="filter-toggle">
+									<span class="filter-toggle-text">Categories By</span><i class="icon-chevron-down"></i>
+								</div>
+								<div class="filter-wrapper">
+									<div class="categories-menu">
+										<h6><i class="icon-restaurant_menu"></i>Categories</h6>
+										<ul class="menu-list">
+											<li class="active"><a href="#" class="menu-category-link"> Pizzas </a></li>
+											<li class=""><a href="#" class="menu-category-link"> Garlic Bread </a></li>
+											<li class=""><a href="#" class="menu-category-link"> Kebabs </a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+								<div class="tabs-holder horizontal">
+									<ul class="stickynav-tabs nav nav-tabs">
+										<li class="active"><a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Menu</a></li>
+										
+									</ul>
+									<div class="tab-content">
+										<div id="home" class="tab-pane in active">
+											<div class="menu-itam-holder">
+												
+												<div id="menu-item-list-6272" class="menu-itam-list">
+													
+													
+													<div class="element-title" id="menu-category-2">
+														<h5 class="text-color">Garlic Bread</h5>
+														<span>Garlic bread also garlic toast consists of bread usually a
+															baguette or
+															sour dough like a ciabatta</span>
+													</div>
+													<ul>
+														<li>
+															<div class="image-holder"> <a href="assets/extra-images/cover-photo12-1024x187.jpg"><img src="assets/extra-images/cover-photo12-150x150.jpg" alt=""></a></div>
+															<div class="text-holder">
+																<h6>Garlic Pizza Bread 9 " Thin</h6>
+																<span>Butter and crushed garlic, then spread a little over
+																	the
+																	pizza</span>
+															</div>
+															<div class="price-holder">
+																<span class="price">£2.50</span>
+																<a href="#" class="restaurant-add-menu-btn"><i class="icon-plus4 text-color"></i></a>
+																<span id="add-menu-loader-10"></span>
+															</div>
+														</li>
+														<li>
+															<div class="image-holder"> <a href="assets/extra-images/cover-photo10-1024x187.jpg"><img src="assets/extra-images/cover-photo10-150x150.jpg" alt=""></a></div>
+															<div class="text-holder">
+																<h6>Garlic Bread 12" Deep</h6>
+																<span>Pizza bread made with extra virgin olive oil</span>
+															</div>
+															<div class="price-holder">
+																<span class="price">£3.50</span>
+																<a href="#" class="restaurant-add-menu-btn"><i class="icon-plus4 text-color"></i></a>
+																<span id="add-menu-loader-11"></span>
+															</div>
+														</li>
+													</ul>
+													
+												</div>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Main Section End -->
+			<!-- Footer Start -->
+			<footer id="footer" class="footer-style-2">
+				<div class="footer-widget">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="widget widget-newsletter">
+									<div class="widget-title">
+										<h5>Subscribe to our Newsletter</h5>
+									</div>
+									<div class="fieldset">
+										<form action="#">
+											<div class="field-holder">
+												<label>
+													<i class=" icon-envelope3"></i>
+													<input type="text" class="field-input" placeholder=" Enter Your Email Address...">
+												</label>
+											</div>
+											<div class="field-holder btn-holder">
+												<input class="subscribe-btn bgcolor" type="submit" value="Sign Up">
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="widget widget_text">
+									<div class="widget-title">
+										<h5>About us</h5>
+									</div>
+									<div class="textwidget">Foodbakery is the business of food and restaurants.
+										Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.
+										Explore restaurants, bars, and cafés by locality cum doctus civibus
+										efficiantur in imperdiet deterruisset. FoodBakery Just ordered me some grub
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+								<div class="widget widget-top-cities">
+									<div class="widget-title">
+										<h5>Popular Cities</h5>
+									</div>
+									<ul>
+										<li><a href="listings.html">Aberaeron</a></li>
+										<li><a href="listings.html">Aberdeenshire</a></li>
+										<li><a href="listings.html">Anston</a></li>
+										<li><a href="listings.html">Ascot</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+								<div class="widget widget-top-cities">
+									<div class="widget-title">
+										<h5>Popular Cuisines</h5>
+									</div>
+									<ul>
+										<li><a href="listings.html">BB.Q</a></li>
+										<li><a href="listings.html">ChickenRoast</a></li>
+										<li><a href="listings.html">Cold Coffee</a></li>
+										<li><a href="listings.html">Cold Drink</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+								<div class="widget widget-categories">
+									<div class="widget-title">
+										<h5>Menu</h5>
+									</div>
+									<ul>
+										<li><a href="blog-large.html">Blog Large</a></li>
+										<li><a href="blog-medium.html">Blog Medium</a></li>
+										<li><a href="blog-medium.html">Blog Masonry</a></li>
+										<li><a href="contact-us.html">Contact</a></li>
+										<li><a href="faq.html">FAQ’s</a></li>
+										<li><a href="how-it-works.html">How itworks</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="widget widget-connect">
+									<div class="widget-title">
+										<h5> Connect</h5>
+									</div>
+									<ul>
+										<li><span class="bgcolor"><i class="icon-ring_volume"></i></span>
+											<p>+1 123 456 7892</p>
+										</li>
+										<li><span class="bgcolor"><i class="icon-envelope-o"></i></span>
+											<p><a href="#">support@chimpstudio.com</a>
+											</p>
+										</li>
+										<li><span class="bgcolor"><i class="icon-location-pin2"></i></span>
+											<p>33 - B, 2nd Floor, Saint Jhon Doe Appartments, Sussex, UK.26AL565C.</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="copyright-sec">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="copyright-inner">
+									<div class="copy-right">
+										<p>© 2020 Foodbakery. All Rights Reserved. Powered By <a href="#">ChimpGroup</a>.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> <!-- /.cs-copyright -->
+			</footer>
+			<!-- Footer End -->
+		</div>
+		<!-- Modal Popup Start -->
+		<div class="modal" id="sign-in" aria-labelledby="myModalLabel">
+			<div class="modal-dialog">
+				<div class="login-form">
+					<div class="modal-content">
+						<div class="tab-content">
+							<div id="user-login-tab" class="tab-pane in active">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+									<h5 class="modal-title foodbakery-dev-login-main-title">Login To Your Account</h5>
+								</div>
+								<div class="modal-body">
+									<p class="foodbakery-dev-login-top-msg"></p>
+									<div class="cs-login-pbox">
+										<div class="status status-message"></div>
+										<form method="post" class="wp-user-form webkit" id="ControlForm_43687">
+											<div class="cs-demo-login">
+												<div class="cs-demo-login-lable text-color">Click to login with Demo User
+												</div>
+												<div class="clearfix"></div>
+												<ul class="login-switches">
+													<li>
+														<a href="restaurant-dashboard.html" class="btn-red demo-publisher-user"><i class="icon-food"></i> Restaurant</a>
+													</li>
+													<li>
+														<a href="buyer-dashboard.html" class="btn-red btn-green demo-buyer-user"><i class="icon-user4"></i> Buyer</a>
+													</li>
+												</ul>
+											</div>
+											<div class="input-filed">
+												<i class="icon-user4"></i>
+												<input type="text" placeholder="Username">
+											</div>
+											<div class="input-filed">
+												<i class="icon-unlock-alt"></i>
+												<input type="password" value="Password">
+											</div>
+											<div class="forget-password">
+												<a data-toggle="tab" href="#user-password" class="cs-forgot-switch forgot-switch">Forgot Password?</a>
+											</div>
+											<div class="input-filed input-field-btn">
+												<div class="ajax-login-button input-button-loader">
+													<input type="button" class="cs-bgcolor" value="Log in">
+												</div>
+											</div>
+										</form>
+										<div class="signin-tab-link forget-password">
+											New Here?
+											<a data-toggle="tab" href="#user-register" class="foodbakery-dev-login-box-btn forgot-switch">Signup</a>
+										</div>
+										<div class="footer-element comment-form-social-connect social_login_ui ">
+											<div class="social-media">
+												<h6><span>Login with</span></h6>
+												<ul>
+													<li><a href="#" title="Facebook" data-original-title="Facebook" class="social_login_login_facebook facebook"><span class="social-mess-top fb-social-login" style="display:none">Please set API key</span><i class="icon-facebook"></i>Sign In With Facebook</a></li>
+													<li><a href="#" title="Twitter" data-original-title="twitter" class="social_login_login_twitter twitter"><span class="social-mess-top tw-social-login" style="display:none">Please set API key</span><i class="icon-twitter3"></i>Sign In With Twitter</a></li>
+													<li><a href="#" rel="nofollow" title="google-plus" data-original-title="google+" class="social_login_login_google gplus"><span class="social-mess-top gplus-social-login" style="display:none">Please set API key</span><i class="icon-google4"></i>Sign In With Google</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="user-register" class="tab-pane">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+									<h5 id="myModalLabel" class="modal-title">Sign Up</h5>
+								</div>
+								<div class="modal-body">
+									<div role="tabpanel" class="tab-pane active">
+										<div id="result_296069" class="status-message"></div>
+										<form method="post" class="wp-user-form demo_test">
+											<div class="input-filed foodbakery-company-name">
+												<i class="icon-v-card"></i>
+												<input type="text" placeholder="Company Name">
+											</div>
+											<div class="input-filed">
+												<i class="icon-user4"></i>
+												<input type="text" placeholder="Username">
+											</div>
+											<div class="input-filed">
+												<i class="icon-v-card"></i>
+												<input type="text" placeholder="Display Name">
+											</div>
+											<div class="input-filed">
+												<i class="icon-email"></i>
+												<input type="email" placeholder="Email">
+											</div>
+											<span class="signup-alert">
+												<b>Note :</b> Please enter your correct email and we will send you a
+												password
+												on that email.
+											</span>
+											<div class="checkbox-area">
+												<input type="checkbox" id="terms-head" class="foodbakery-dev-req-field">
+												<label for="terms-head">
+													By Registering You Confirm That You Accept theme
+													<a target="_blank" href="#">
+														Terms &amp; conditions
+													</a>
+													And
+													<a target="_blank" href="#">
+														Privacy Policy
+													</a>
+												</label>
+											</div>
+											<div class="side-by-side select-icon clearfix">
+												<div class="select-holder"></div>
+											</div>
+											  
+											<div class="checks-holder">
+												<div class="input-filed input-field-btn">
+													<div class="ajax-signup-button input-button-loader">
+														<input type="button" value="Sign Up">
+													</div>
+												</div>
+											</div>
+										</form>
+										<div class="register_content"></div>
+										<div class="create- signin-tab-link ">Already have an account?
+											<a data-toggle="tab" href="#user-login-tab" class="foodbakery-dev-signup-box-btn">Login here</a>
+										</div>
+										<div class="footer-element comment-form-social-connect social_login_ui">
+											<div class="social-media">
+												<h6><span>Login with</span></h6>
+												<ul>
+													<li><a href="javascript:void(0);" title="Facebook" data-original-title="Facebook" class="social_login_login_facebook facebook"><span class="social-mess-top fb-social-login" style="display:none">Please set API key</span><i class="icon-facebook"></i>Sign In With
+															Facebook</a></li>
+													<li><a href="javascript:void(0);" title="Twitter" data-original-title="twitter" class="social_login_login_twitter twitter"><span class="social-mess-top tw-social-login" style="display:none">Please set API key</span><i class="icon-twitter3"></i>Sign In With
+															Twitter</a></li>
+													<li><a href="javascript:void(0);" rel="nofollow" title="google-plus" data-original-title="google+" class="social_login_login_google gplus"><span class="social-mess-top gplus-social-login" style="display:none">Please set API key</span><i class="icon-google4"></i>Sign In With
+															Google</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="user-password" class="tab-pane">
+								<div class="content-style-form cs-forgot-pbox content-style-form-2">
+									<div>
+										<form class="user_form" method="post">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">×</span>
+												</button>
+												<h5 class="modal-title foodbakery-dev-login-main-title">Create Your Food
+													Bakery Account</h5>
+											</div>
+											<div class="modal-body modal-body-loader">
+												<span class="alert-info">Enter your email address below and we'll send you
+													an
+													email with instructions on how to change your password</span>
+												<div class="input-filed">
+													<i class="icon-email"></i>
+													<input type="text" placeholder="Enter email address..." name="user_input">
+												</div>
+												<div class="input-filed input-field-btn">
+													<div class="ajax-forgot-button input-button-loader">
+														<input type="submit" class="reset_password cs-bgcolor" name="submit" value="Submit">
+													</div>
+												</div>
+												<div class="forget-password">
+													<a data-toggle="tab" href="#user-login-tab" class="cs-login-switch forgot-switch triggered-click">Login Here</a>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal menu-extras-modal" id="extras-0-1" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<h2><a>Extras</a></h2>
+					</div>
+					<div class="modal-body">
+						<div class="menu-selection-container">
+							<div class="extras-detail-main">
+								<h3>Drinks</h3>
+								<div class="extras-detail-options" style="display: block;">
+									<div class="extras-detail-att">
+										<label for="extra-0-0-11">
+											<input type="radio" id="extra-0-0-11" data-ind="0" data-menucat-id="0" data-menu-id="1" name="extra-0-15">
+											<span class="extra-title">Cold Drink</span>
+											<span class="extra-price">£1.50</span>
+										</label>
+									</div>
+									<div class="extras-detail-att">
+										<label for="extra-1-0-12">
+											<input type="radio" id="extra-1-0-12" data-ind="1" data-menucat-id="0" data-menu-id="1" name="extra-0-15">
+											<span class="extra-title">Redbull</span>
+											<span class="extra-price">£2.50</span>
+										</label>
+									</div>
+									<div class="extras-detail-att">
+										<label for="extra-2-0-13">
+											<input type="radio" id="extra-2-0-13" data-ind="2" data-menucat-id="0" data-menu-id="1" name="extra-0-15">
+											<span class="extra-title">chillies</span>
+											<span class="extra-price">£3.50</span>
+										</label>
+									</div>
+								</div>
+								<div class="extras-detail-selected"></div>
+							</div>
+							<div class="extras-btns-holder">
+								<button data-menucat-id="0" data-menu-id="1" data-rid="6272" class="add-extra-menu-btn input-button-loader editing-menu" data-rand="21274501">Update</button>
+								<a href="#" class="reset-menu-fields btn">Reset Fields</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal Popup End -->
+		<script src="assets/js/responsive.menu.js"></script>
+		<script src="assets/js/swiper.min.js"></script>
+		<script src="assets/js/bootstrap-datepicker.js"></script>
+		<script src="assets/js/chosen.js"></script>
+		<script src="assets/js/counter.js"></script>
+		<script src="assets/js/fliters.js"></script>
+		<script src="assets/js/jquery.fitvids.js"></script>
+		<script src="assets/js/jquery.growl.js"></script>
+		<script src="assets/js/jquery.matchHeight-min.js"></script>
+		<script src="assets/js/masonry.pkgd.js"></script>
+		<script src="assets/js/skills-progress.js"></script>
+		<script src="assets/js/bootstrap-slider.js"></script>
+		<script src="assets/js/wow.js"></script>
+		<script src="assets/js/jquery-ui.js"></script>
+		<script src="assets/js/theia-sticky-sidebar.js"></script>
+		<script src="assets/js/functions-plugin.js"></script>
+		<script src="assets/js/functions-plugin.js"></script>
+	<script src="assets/js/functions.js"></script>
+	</body>
+
+</html>
