@@ -46,7 +46,7 @@ class User(AbstractBaseUser):
 
   first_name = models.CharField(max_length=50)
   last_name = models.CharField(max_length=50)
-  username = models.models.CharField(max_length=50,unique =True)
+  username = models.CharField(max_length=50,unique =True)
   email = models.EmailField(max_length=100,unique=True)
   phone_number = models.CharField(max_length=15,blank=True)
   role = models.PositiveSmallIntegerField(choices=ROLE_CHOICE, blank=True, null=True)
@@ -63,11 +63,11 @@ class User(AbstractBaseUser):
   is_superadmin = models.BooleanField(default=False)
 
   USERNAME_FIELD = 'email'
-  REQUIRED_FIELDS = ['user','first_name','last_name']
+  REQUIRED_FIELDS = ['username','first_name','last_name']
   objects = UserManager()
 
   def __str__(self):
-      return f"{self.name} - {self.email}"
+      return f"{self.username} - {self.email}"
   
   def has_perm(self,perm, obj = None):
     return self.is_admin
@@ -75,3 +75,7 @@ class User(AbstractBaseUser):
   def has_module_perms(self,app_label):
     return True
   
+class UserProfile(models.Model):
+  user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+  profile_picture = models.ImageField(upload_to="users/profile_picture", blank=True, null=True)
+  cover_photo = models.ImageField(upload_to="users/cover_photo", blank=True, null=True)
