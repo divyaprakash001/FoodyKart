@@ -1,14 +1,22 @@
 from django.contrib import admin
-from .models import User
+from .models import User, UserProfile
 from django.contrib.auth.admin import UserAdmin
 
-# Register your models here.
+
 class CustomUserAdmin(UserAdmin):
-  list_display = ('username','email','role','is_staff','is_admin','is_superadmin','is_active')
-  ordering = ('-date_joined',)
+
+  # these top three lines make the password non editable
   filter_horizontal = ()
-  list_filter = ()
-  fieldsets = ()
+  list_filter= ()
+  fieldsets=()
+
+  list_display = ['username','email', 'role','is_active']
+  list_filter = ['date_joined','modified_date','created_date', 'role','is_active']
+  ordering = ['-date_joined']
 
 
-admin.site.register(User,CustomUserAdmin)
+
+
+# Register your models here.
+admin.site.register(User, CustomUserAdmin)
+admin.site.register(UserProfile)
