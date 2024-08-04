@@ -11,7 +11,7 @@
                             <p class="text-center">Please fill this form to get yourself and enjoy your delicious food.</p>
                             <hr>
                             <div id="restaurant-sets-holder">
-                                <form action="{% url "registerUser" %}" class="form-fields-set foodbakery-dev-restaurant-form" method="post" action="register-select-package.html">
+                                <form action="{% url "registerUser" %}" class="form-fields-set foodbakery-dev-restaurant-form" method="post">
 																	{% csrf_token %}
                                     <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
                                         <li>
@@ -96,13 +96,8 @@
 
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        {% if messages %}
-                                                        <ul class="messages">
-                                                            {% for message in messages %}
-                                                            <li style="text-align:center;" {% if message.tags %} class="{{ message.tags }} alert alert-success"{% endif %}>{{ message }}</li>
-                                                            {% endfor %}
-                                                        </ul>
-                                                        {% endif %}
+                                                        {% comment %} load alert {% endcomment %}
+                                                        {% include "includes/alerts.html" %}
                                                 </div>
                                             </div>
 

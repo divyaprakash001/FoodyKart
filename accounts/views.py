@@ -27,7 +27,7 @@ def registerUser(request):
       user.role = models.User.CUSTOMER
       print("user is created")
       user.save()
-      messages.success(request, "Registered Successfully!")
+      messages.success(request, "Your account has been registered successfully!")
       return redirect('registerUser')
     else:
       print("Invalid form")
