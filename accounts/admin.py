@@ -10,7 +10,7 @@ class CustomUserAdmin(UserAdmin):
   list_filter= ()
   fieldsets=()
 
-  list_display = ['username','email', 'role','is_active']
+  list_display = ['email','first_name','last_name', 'username' ,'role','is_active']
   list_filter = ['date_joined','modified_date','created_date', 'role','is_active']
   ordering = ['-date_joined']
 
