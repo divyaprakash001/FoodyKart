@@ -1,7 +1,7 @@
   {% if messages %}
-  <ul class="messages">
+  <ul style='z-index:99999;' class="messages">
       {% for message in messages %}
-      <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show show-notification"{% endif %}>
+      <div style='z-index:99999;' {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show show-notification"{% endif %}>
         <strong>{{ message }}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
