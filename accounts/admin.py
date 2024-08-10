@@ -13,6 +13,7 @@ class CustomUserAdmin(UserAdmin):
   list_display = ['email','first_name','last_name', 'username' ,'role','is_active']
   list_filter = ['date_joined','modified_date','created_date', 'role','is_active']
   ordering = ['-date_joined']
+  list_editable = ['is_active']
 
 
 
