@@ -28,8 +28,6 @@ def check_role_customer(user):
 
 
 
-
-
 def registerUser(request):
   if request.user.is_authenticated:
     messages.warning(request,'You have already logged in!')
