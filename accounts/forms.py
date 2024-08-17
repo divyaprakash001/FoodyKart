@@ -31,7 +31,7 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
   profile_picture = forms.FileField(widget=forms.FileInput(attrs={'class':'btn btn-info'}), validators=[allow_only_images_validator])
   cover_photo = forms.FileField(widget=forms.FileInput(attrs={'class':'btn btn-info'}),validators=[allow_only_images_validator])
-  address = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Start typing...','required':'required'}))
+  address = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Enter a Place','required':'required'}))
   class Meta:
     model = UserProfile
     fields = ['profile_picture','cover_photo','address','country','state','city','pin_code','latitude','longtitude']    
