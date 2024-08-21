@@ -10,7 +10,7 @@
           <div class="company-info">
             <div class="img-holder">
               <figure>
-                <img src="{% if vendor.user_profile.cover_photo %}background: url({{vendor.user_profile.cover_photo.url}}) no-repeat scroll 0 0 / cover; {% else %}background: url('') no-repeat scroll 0 0 / cover;{% endif %}" alt="">
+                <img {% if vendor.user_profile.profile_picture %}src="{{vendor.user_profile.profile_picture.url}}" {% else %}src="{% static "main/logo/profile.gif" %}"{% endif %} alt="">
               </figure>
             </div>
 
