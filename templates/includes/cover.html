@@ -1,5 +1,5 @@
 {% load static %}
-<div class="page-section restaurant-detail-image-section" style=" {% if vendor.user_profile.cover_photo %}background: url({{vendor.user_profile.cover_photo.url}}) no-repeat scroll 0 0 / cover; {% else %}background: url('{% static "main/images/COVER PHOTO.jpg" %}') no-repeat scroll 0 0 / cover;{% endif %}">
+<div class="page-section restaurant-detail-image-section" style=" {% if vendor.user_profile.cover_photo %}background: url({{vendor.user_profile.cover_photo.url}}) no-repeat scroll 0 0 / cover; {% else %}background: url('{% static "main/extra-images/cover_photo.png" %}') no-repeat scroll 0 0 / cover;{% endif %}">
   <!-- Container Start -->
   <div class="container">
     <!-- Row Start -->
@@ -10,15 +10,21 @@
           <div class="company-info">
             <div class="img-holder">
               <figure>
-                <img {% if vendor.user_profile.profile_picture %}src="{{vendor.user_profile.profile_picture.url}}" {% else %}src="{% static "main/logo/profile.gif" %}"{% endif %} alt="">
+                {% if vendor.user_profile.profile_picture %}
+                  <img src="{{vendor.user_profile.profile_picture.url}}" alt="profile picture">
+                {% else %}
+                  <img src="{% static "main/logo/profile.gif" %}" alt="profile picture">
+                {% endif %}
               </figure>
             </div>
 
             <div class="text-holder">
               <span class="restaurant-title">{{vendor.vendor_name}}</span>
               <div class="text">
-                <i class="icon-location"></i>
-                <p>{{vendor.user_profile.address}}, {{vendor.user_profile.city}}, {{vendor.user_profile.state}}, {{vendor.user_profile.country}}.</p>
+                {% if vendor.user_profile.address  %}
+                  <i class="icon-location"></i>
+                  <p>{{vendor.user_profile.address}}</p>
+                {% endif %}
               </div>
             </div>
           </div>

@@ -36,7 +36,11 @@
 																		<li class="gal-img">
 																			<div class="drag-list">
 																				<div class="item-thumb">
-																					<img class="thumbnail" {% if vendor.user_profile.profile_picture %}src="{{vendor.user_profile.profile_picture.url}}" {% else %} src="{% static "main/logo/profile.gif" %}" {% endif %} alt="Profile Photo">
+																					{% if vendor.user_profile.profile_picture %}
+																						<img class="thumbnail" src="{{vendor.user_profile.profile_picture.url}}" alt="Profile Photo">
+																					{% else %}
+																						<img class="thumbnail" src="{% static "main/logo/profile.gif" %}" alt="Profile Photo">
+																					{% endif %}
 																				</div>
 																			</div>
 																		</li>
@@ -58,7 +62,11 @@
 																		<li class="gal-img">
 																			<div class="drag-list">
 																				<div class="item-thumb">
-																					<img class="thumbnail" {% if vendor.user_profile.cover_photo %}src="{{vendor.user_profile.cover_photo.url}}" {% else %} src="{% static "main/images/COVER PHOTO.jpg" %}" {% endif %} alt="Cover Photo">
+																					{% if vendor.user_profile.cover_photo %}
+																							<img class="thumbnail" src="{{vendor.user_profile.cover_photo.url}}" alt="Cover Photo">
+																						{% else %}
+																							<img class="thumbnail" src="{% static "main/extra-images/cover_photo.png" %}" alt="Cover Photo">
+																						{% endif %}
 																				</div>
 																			</div>
 																		</li>
@@ -80,7 +88,11 @@
 																		<li class="gal-img">
 																			<div class="drag-list">
 																				<div class="item-thumb">
-																					<img class="thumbnail" src="{{vendor.vendor_license.url}}" alt="Vendor License">
+																					{% if vendor.vendor_license.url %}
+																						<img class="thumbnail" src="{{vendor.vendor_license.url}}" alt="Vendor License">
+																					{% else %}
+																						<img class="thumbnail" src="{% static "main/extra-images/cover_photo.png" %}" alt="Vendor License">
+																					{% endif %}
 																				</div>
 																			</div>
 																		</li>
