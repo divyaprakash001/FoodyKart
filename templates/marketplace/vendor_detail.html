@@ -19,9 +19,9 @@
               <div class="text-holder">
                 <span class="restaurant-title">{{vendor}}</span>
                 <div class="text">
-                  {% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pin_code%}
+                  {% if vendor.user_profile.address%}
                   <i class="icon-location"></i>
-                  <p>{{vendor.user_profile.city}} {{vendor.user_profile.state}} {{vendor.user_profile.pin_code}}</p>
+                  <p>{{vendor.user_profile.address}}, {{vendor.user_profile.city}}, {{vendor.user_profile.state}} {{vendor.user_profile.pin_code}}</p>
                   {% endif %}
                 </div>
               </div>
@@ -92,45 +92,47 @@
               <div id="home" class="tab-pane in active">
                 <div class="menu-itam-holder">
                   
+                  {% for category in categories %}
+
                   <div id="menu-item-list-6272" class="menu-itam-list">
                     
-                    
                     <div class="element-title" id="menu-category-2">
-                      <h5 class="text-color">Garlic Bread</h5>
-                      <span>Garlic bread also garlic toast consists of bread usually a
-                        baguette or
-                        sour dough like a ciabatta</span>
+                      <h5 class="text-color">{{category}}</h5>
+                      <span>{{category.description}}</span>
                     </div>
                     <ul>
-                      <li>
-                        <div class="image-holder"> <a href="assets/extra-images/cover-photo12-1024x187.jpg"><img src="assets/extra-images/cover-photo12-150x150.jpg" alt=""></a></div>
-                        <div class="text-holder">
-                          <h6>Garlic Pizza Bread 9 " Thin</h6>
-                          <span>Butter and crushed garlic, then spread a little over
-                            the
-                            pizza</span>
-                        </div>
-                        <div class="price-holder">
-                          <span class="price">£2.50</span>
-                          <a href="#" class="restaurant-add-menu-btn"><i class="icon-plus4 text-color"></i></a>
-                          <span id="add-menu-loader-10"></span>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="image-holder"> <a href="assets/extra-images/cover-photo10-1024x187.jpg"><img src="assets/extra-images/cover-photo10-150x150.jpg" alt=""></a></div>
-                        <div class="text-holder">
-                          <h6>Garlic Bread 12" Deep</h6>
-                          <span>Pizza bread made with extra virgin olive oil</span>
-                        </div>
-                        <div class="price-holder">
-                          <span class="price">£3.50</span>
-                          <a href="#" class="restaurant-add-menu-btn"><i class="icon-plus4 text-color"></i></a>
-                          <span id="add-menu-loader-11"></span>
-                        </div>
-                      </li>
+                      {% for food in category.fooditems.all %}
+                        <li>
+                          <div class="image-holder">
+                            {% if food.image %}
+                              <img src="{{food.image.url}}" alt="">
+                            {% else %}
+                              <img src="{% static "main/extra-images/cover-photo12-150x150.jpg" %}" alt="">
+                            {% endif %}
+                          </div>
+                          <div class="text-holder">
+                            <h6>{{food.food_title}}</h6>
+                            <span>{{food.description}}</span>
+                          </div>
+                          <div class="price-holder">
+                            <span class="price">₹ {{food.price}}</span>
+
+                            <a href="#" class="decrease_cart"  style="margin-right:28px; cursor: pointer;"><i class="icon-minus text-color"></i></a>
+                            <label id="qty-{{food.id}}">0</label>
+                            <a href="#" class="add_to_cart" data-id="{{food.id}}" data-url="{% url "add_to_cart" food.id %}"><i class="icon-plus4 text-color"></i></a>
+
+                          </div>
+                        </li>
+                      {% endfor %}
                     </ul>
+                    {% endfor %}
                     
                   </div>
+                  {% for item in cart_items %}
+
+                    <span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}">{{item.quantity}}</span>
+
+                  {% endfor %}
                 </div>
               </div>
               
