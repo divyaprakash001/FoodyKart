@@ -111,7 +111,6 @@ $(document).ready(function () {
     $("#" + the_id).html(qty)
   });
 
-  // decrease
 
   // decrease cart
   $(".decrease_cart").on("click", function (e) {
@@ -139,6 +138,47 @@ $(document).ready(function () {
         } else {
           $("#cart_counter").html(response.cart_counter['cart_count'])
           $("#qty-" + food_id).html(response.qty)
+        }
+      }
+    });
+
+  });
+
+
+  // delete cart
+  $(".delete_cart").on("click", function (e) {
+    e.preventDefault();
+    delete_cart_btn = $(this);
+    // food_id = $(this).attr("data-id");
+    url = $(this).attr("data-url");
+
+    console.log(url);
+
+    $.ajax({
+      type: "GET",
+      url: url,
+      success: function (response) {
+        console.log(response)
+        if (response.status == 'login_required') {
+          swal(response.message, '', 'info').then(function () {
+            window.location = '/login'
+          })
+        }
+        else if (response.status == 'Deleted') {
+          $("#cart_counter").html(response.cart_counter['cart_count'])
+          delete_cart_btn.closest('li').fadeOut(function () {
+            $(this).remove();
+          });
+          swal(response.message, '', 'success')
+        }
+        else if (response.status == 'Invalid Request') {
+          swal(response.message, '', 'info')
+        }
+        else if (response.status == 'Not Found') {
+          swal(response.message, '', 'info')
+        }
+        else if (response.status == 'Failed') {
+          swal(response.message, '', 'error')
         }
       }
     });
