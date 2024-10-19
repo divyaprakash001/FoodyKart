@@ -86,11 +86,19 @@ $(document).ready(function () {
       url: url,
       data: data,
       success: function (response) {
-        console.log(response);
+        if (response.status == 'login_required') {
+          swal(response.message, '', 'info').then(function () {
+            window.location = "/login";
+          })
+        }
+        else if (response.status == 'Failed') {
+          swal(response.message, '', 'error')
+        } else {
+          $("#cart_counter").html(response.cart_counter['cart_count'])
+          $("#qty-" + food_id).html(response.qty)
+        }
 
-        // console.log(response.cart_counter['cart_count']);
-        $("#cart_counter").html(response.cart_counter['cart_count'])
-        $("#qty-" + food_id).html(response['qty'])
+
       }
     });
 
@@ -102,5 +110,40 @@ $(document).ready(function () {
     var qty = $(this).attr("data-qty")
     $("#" + the_id).html(qty)
   });
+
+  // decrease
+
+  // decrease cart
+  $(".decrease_cart").on("click", function (e) {
+    e.preventDefault();
+    food_id = $(this).attr("data-id");
+    url = $(this).attr("data-url");
+
+    console.log(food_id);
+    console.log(url);
+
+    $.ajax({
+      type: "GET",
+      url: url,
+      success: function (response) {
+        if (response.status == 'login_required') {
+          swal(response.message, '', 'info').then(function () {
+            window.location = '/login'
+          })
+        }
+        else if (response.status == 'Removed') {
+          swal(response.message, '', 'success')
+        }
+        else if (response.status == 'Failed') {
+          swal(response.message, '', 'error')
+        } else {
+          $("#cart_counter").html(response.cart_counter['cart_count'])
+          $("#qty-" + food_id).html(response.qty)
+        }
+      }
+    });
+
+  });
+
 
 });

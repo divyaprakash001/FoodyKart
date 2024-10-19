@@ -38,7 +38,7 @@ def vendor_detail(request,vendor_slug):
   return render(request,'marketplace/vendor_detail.html',context)
 
 
-def add_to_cart(request,food_id):
+def add_to_cart(request,food_id=None):
   if request.user.is_authenticated:
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
       # check if the food item exists
@@ -56,10 +56,37 @@ def add_to_cart(request,food_id):
           return JsonResponse({"status":"Success","message":"Added the food to the cart.","cart_counter":get_cart_counter(request),"qty":checkCart.quantity})
       except:
         return JsonResponse({"status":"Failed","message":"This food does not exist."})
-        pass
+    else:
+      return JsonResponse({"status":"Failed","message":"Invalid request."})
+  else:
+    return JsonResponse({"status":"login_required","message":"Please login to continue"})
+  
+
+def decrease_cart(request,food_id=None):
+  if request.user.is_authenticated:
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+      # check if the food item exists
+      try:
+        fooditem = FoodItem.objects.get(id=food_id)
+        # check if the user already added that food to the cart
+        try:
+          checkCart = Cart.objects.get(user=request.user, fooditem = fooditem)
+          # increase the cart quantity
+          if  checkCart.quantity > 1:
+            checkCart.quantity -= 1
+            checkCart.save()
+            return JsonResponse({"status":"Success","message":"Decrease the cart quantity.","cart_counter":get_cart_counter(request),"qty":checkCart.quantity})
+          else:
+            checkCart.delete()
+            checkCart.quantity = 0
+            return JsonResponse({"status":"Removed","message":"You have removed this item from the cart","cart_counter":get_cart_counter(request),"qty":checkCart.quantity})
+        except Cart.DoesNotExist:
+          return JsonResponse({"status":"Failed","message":"You donot have this item in your cart."})
+      except:
+        return JsonResponse({"status":"Failed","message":"This food does not exist."})
     else:
       return JsonResponse({"status":"Failed","message":"Invalid request."})
   else:
     
-    return JsonResponse({"status":"Failed","message":"Please login to continue"})
+    return JsonResponse({"status":"login_required","message":"Please login to continue"})
   
