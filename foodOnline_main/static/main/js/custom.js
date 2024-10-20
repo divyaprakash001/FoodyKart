@@ -77,6 +77,7 @@ $(document).ready(function () {
     e.preventDefault();
     food_id = $(this).attr("data-id")
     url = $(this).attr("data-url")
+    price = $(this).attr("data-price")
 
     data = {
       food_id: food_id,
@@ -96,6 +97,7 @@ $(document).ready(function () {
         } else {
           $("#cart_counter").html(response.cart_counter['cart_count'])
           $("#qty-" + food_id).html(response.qty)
+          alert(price * response.qty)
         }
 
 
@@ -115,23 +117,34 @@ $(document).ready(function () {
   // decrease cart
   $(".decrease_cart").on("click", function (e) {
     e.preventDefault();
+    decrease_btn = $(this);
     food_id = $(this).attr("data-id");
     url = $(this).attr("data-url");
+    cart_id = $(this).attr("id");
+    // alert(cart_id)
 
-    console.log(food_id);
-    console.log(url);
+    // console.log(food_id);
+    // console.log(url);
 
     $.ajax({
       type: "GET",
       url: url,
       success: function (response) {
+
+
         if (response.status == 'login_required') {
           swal(response.message, '', 'info').then(function () {
             window.location = '/login'
           })
         }
         else if (response.status == 'Removed') {
+          $("#cart_counter").html(response.cart_counter['cart_count'])
           swal(response.message, '', 'success')
+          $("#qty-" + food_id).html(response.qty)
+          if (window.location.pathname == '/marketplace/cart') {
+            document.getElementById("cart-item-" + cart_id).remove();
+            checkEmptyCart();
+          }
         }
         else if (response.status == 'Failed') {
           swal(response.message, '', 'error')
@@ -141,8 +154,11 @@ $(document).ready(function () {
         }
       }
     });
-
   });
+
+
+
+
 
 
   // delete cart
@@ -170,6 +186,7 @@ $(document).ready(function () {
             $(this).remove();
           });
           swal(response.message, '', 'success')
+          checkEmptyCart();
         }
         else if (response.status == 'Invalid Request') {
           swal(response.message, '', 'info')
@@ -185,5 +202,21 @@ $(document).ready(function () {
 
   });
 
-
 });
+
+function removeCartItem(cartItemQty, cart_id) {
+  if (window.location.pathname == '/cart/') {
+    if (cartItemQty <= 0) {
+      document.getElementById("cart-item" + cart_id).remove()
+    }
+  }
+
+}
+
+// check if the cart is empty
+function checkEmptyCart() {
+  cart_counter = document.getElementById("cart_counter");
+  if (cart_counter.innerHTML == 0) {
+    document.getElementById("empty_cart").style.display = "block";
+  }
+}

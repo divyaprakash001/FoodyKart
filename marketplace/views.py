@@ -94,7 +94,7 @@ def decrease_cart(request,food_id=None):
 @login_required(login_url='login')
 def cart(request):
   context={}
-  cart_items = Cart.objects.filter(user=request.user)
+  cart_items = Cart.objects.filter(user=request.user).order_by("created_at")
   context['cart_items'] = cart_items
   return render(request,"marketplace/cart.html",context)
 
