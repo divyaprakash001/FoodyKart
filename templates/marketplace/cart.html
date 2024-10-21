@@ -79,22 +79,22 @@
                         <li style="list-style: none;">
                           Subtotal
                           <span class="price float-right">
-                            <span class="currency">$</span>
-                            <span id="subtotal">100</span>
+                            <span class="currency">₹</span>
+                            <span id="subtotal">{{subtotal|floatformat:2}}</span>
                           </span>
                         </li>
                         <li style="list-style: none;">
                           Tax
                           <span class="price float-right">
-                            <span class="currency">$</span>
-                            <span id="tax">100</span>
+                            <span class="currency">₹</span>
+                            <span id="tax">{{tax|floatformat:2}}</span>
                           </span>
                         </li>
                         <li style="list-style: none; font-weight:600;">
                           TOTAL
                           <span class="price float-right">
-                            <span class="currency">$</span>
-                            <span id="total">100</span>
+                            <span class="currency">₹</span>
+                            <span id="total">{{grand_total|floatformat:2}}</span>
                           </span>
                         </li>
                       </ul>
