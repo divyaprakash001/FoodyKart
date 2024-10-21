@@ -28,7 +28,7 @@ def get_cart_amounts(request):
       subtotal +=  (float(fooditem.price) * item.quantity)
     print(subtotal)
 
-    tax = float(subtotal) * (5/100)
+    tax = float(subtotal) * (12/100)
     print(tax)
     grand_total = subtotal + tax
     print(grand_total)

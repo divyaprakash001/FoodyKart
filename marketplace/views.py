@@ -120,3 +120,31 @@ def delete_from_cart(request,cart_id=None):
   else:
     return JsonResponse({"status":"Login Required","Message":"Please login to continue"})
   
+
+def search(request):
+  context={}
+  rest_name=  request.GET.get("rest_name")
+  address=  request.GET.get("address")
+  latitude=  request.GET.get("lat")
+  longitude=  request.GET.get("lng")
+  radius=  request.GET.get("radius")
+  print(rest_name)
+  print(address)
+  print(latitude)
+  print(longitude)
+  print(radius)
+
+  conditions={}
+  if rest_name:
+    conditions['vendor_name__icontains']=rest_name
+  if address:
+    conditions['address__icontains']=address
+
+  vendors =  Vendor.objects.filter(**conditions)
+  context['vendors'] = vendors
+
+
+
+      
+
+  return render(request,"marketplace/listings.html",context)

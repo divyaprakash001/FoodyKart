@@ -211,7 +211,6 @@ $(document).ready(function () {
 });
 
 function removeCartItem(cartItemQty, cart_id) {
-  console.log(window.location.pathname);
 
   if (window.location.pathname == '/marketplace/cart') {
     if (cartItemQty <= 0) {
@@ -233,8 +232,8 @@ function checkEmptyCart() {
 function applyCartAmount(subtotal, tax, grand_total) {
 
   if (window.location.pathname == '/marketplace/cart') {
-    $("#subtotal").html(subtotal)
-    $("#tax").html(tax)
-    $("#total").html(grand_total)
+    $("#subtotal").html(subtotal.toFixed(2))
+    $("#tax").html(tax.toFixed(2))
+    $("#total").html(grand_total.toFixed(2))
   }
 }
