@@ -46,11 +46,11 @@ class UserProfileForm(forms.ModelForm):
             # 'longtitude': forms.TextInput(attrs={'placeholder': 'Longitude','readonly':'readonly'}),
             # 'cover_photo':forms.FileInput(attrs={'class':'btn btn-info','accept': 'image/*'}),
         }
-  def __init__(self,*args, **kwargs):
-    super(UserProfileForm,self).__init__(*args, **kwargs)
-    for field in self.fields:
-      if field == 'latitude' or field == 'longtitude':
-        self.fields[field].widget.attrs['readonly'] = 'readonly'
+  # def __init__(self,*args, **kwargs):
+  #   super(UserProfileForm,self).__init__(*args, **kwargs)
+  #   for field in self.fields:
+  #     if field == 'latitude' or field == 'longtitude':
+  #       self.fields[field].widget.attrs['readonly'] = 'readonly'
 
       # if field == 'profile_picture' or field == 'cover_photo':
       #   self.fields[field].widget.attrs['class'] = 'btn btn-info'

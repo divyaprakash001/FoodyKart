@@ -13,7 +13,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class FoodItemAdmin(admin.ModelAdmin):
   list_display=['food_title','category','vendor','price','is_available','updated_at']
-  list_display_links = ['vendor','category','price']
+  list_display_links = ['food_title','vendor','category','price']
   list_editable = ['is_available']
   search_fields = ['category__category_name','food_title','vendor__vendor_name','price']
 
