@@ -145,12 +145,16 @@
 													<span class="sponsored text-color">Sponsored</span>
 												</h5>
 											</div>
-											<span>{% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pin_code %}{{vendor.user_profile.city}} {{vendor.user_profile.state}} {{vendor.user_profile.pin_code}}  {% endif %}
-											<address> <span>Type of food : </span> 
-												{% for category in vendor.category_set.all  %}
-													{{category.category_name}},&nbsp;
-												{% endfor %}
-											</address>
+											{% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pin_code %}
+											<span>{{vendor.user_profile.city}} {{vendor.user_profile.state}} {{vendor.user_profile.pin_code}}</span>
+											{% endif %}
+
+												{% comment %} {% if lat %} {% endcomment %}
+												<br>
+												<span><small><b>{{vendor.kms}}km</b> away</small></span>
+												{% comment %} {% endif %} {% endcomment %}
+											
+											
 										</div>
 										
 									</div>
@@ -168,5 +172,14 @@
 		<!-- Home Pages Elements End  -->
 	</div>
 	<!-- Main Section End -->
+
+	<script>
+		var current_locate = sessionStorage.getItem("current_location");
+    if(current_locate != ''){
+      latlng_list = current_locate.split(',')
+      document.getElementById("id_latitute").value=latlng_list[0]
+      document.getElementById("id_longitude").value=latlng_list[1]
+    }
+	</script>
 	
 	{% endblock %}

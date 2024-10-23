@@ -135,11 +135,6 @@ def search(request):
     longitude=  request.GET.get("lng")
     radius=  request.GET.get("radius")
   
-    conditions={}
-    if keyword:
-      conditions['vendor_name__icontains']=keyword
-    if address:
-      conditions['user_profile__address__icontains']=address
   
     fetch_vendors_by_fooditems = FoodItem.objects.filter(food_title__icontains=keyword,is_available=True).values_list("vendor",flat=True)
     vendors = Vendor.objects.filter(Q(id__in=fetch_vendors_by_fooditems) | Q(vendor_name__icontains = keyword))

@@ -49,6 +49,9 @@
                         {% if source_location %}
                         <br>
                         <span><small class="bg-warning"><b>{{vendor.kms}}km</b> away from {{source_location}}</small></span>
+                        {% else %}
+                        <br>
+                        <span><small class="bg-warning"><b>{{vendor.kms}}km</b> away you</small></span>
                         {% endif %}
                       
                       
@@ -77,4 +80,67 @@
     </div>
   </div>
 </div>
+/*
+<script>
+  var current_locate = sessionStorage.getItem("current_location");
+  console.log(current_locate)
+  if(current_locate != ''){
+    x.value = current_locate;
+    latlng_list = current_locate.split(',')
+    console.log(latlng_list)
+    //document.getElementById("id_latitute").value=latlng_list[0]
+    //document.getElementById("id_longitude").value=latlng_list[1]
+  }
+
+{% comment %}   
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+  
+  function showPosition(position) {
+    let lat = position.coords.latitude; 
+    let lng = position.coords.longitude;
+
+    console.log(lat,lng)
+
+    var latitude = document.getElementById("id_latitute")
+    var longitude = document.getElementById("id_longitude")
+
+    latitude.value=lat
+    longitude.value=lng
+
+    current_location = lat+","+lng
+
+    x.value = current_location
+    sessionStorage.setItem("current_location",current_location);
+
+    window.location = '?lat='+lat+'&lng='+lng
+
+    // x.value = lat +' , '+lng;
+    
+    // var GOOGLE_API_KEY='{{ GOOGLE_API_KEY }}'
+    // var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+','+lng+"+&key="+GOOGLE_API_KEY
+    
+    /* $.ajax({
+      url:url,
+      type:'GET',
+      success : function(response){
+        console.log(response)
+        if(response.status == 'OK'){
+        var location = response.results[0].formatted_address
+        console.log(location)}
+        else{
+          console.warn(response.error_message)
+        }
+      },
+      error:function(){
+        console.log('error')
+        }
+    })*/
+  }
+</script> {% endcomment %}
 {% endblock %}
