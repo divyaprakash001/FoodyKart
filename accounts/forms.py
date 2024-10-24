@@ -55,3 +55,8 @@ class UserProfileForm(forms.ModelForm):
       # if field == 'profile_picture' or field == 'cover_photo':
       #   self.fields[field].widget.attrs['class'] = 'btn btn-info'
       #   self.fields[field].validators = [allow_only_images_validator]
+
+class UserInfoForm(forms.ModelForm):
+  class Meta:
+    model = User
+    fields = ['first_name','last_name','phone_number']
