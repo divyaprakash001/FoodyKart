@@ -87,7 +87,7 @@ $(document).ready(function () {
       url: url,
       data: data,
       success: function (response) {
-        console.log(response);
+        // console.log(response);
 
         if (response.status == 'login_required') {
           swal(response.message, '', 'info').then(function () {
@@ -99,7 +99,8 @@ $(document).ready(function () {
         } else {
           $("#cart_counter").html(response.cart_counter['cart_count'])
           $("#qty-" + food_id).html(response.qty)
-          applyCartAmount(response.get_cart_amounts['subtotal'], response.get_cart_amounts['tax'], response.get_cart_amounts['grand_total'])
+          applyCartAmount(response.get_cart_amounts['subtotal'], response.get_cart_amounts['tax_dict'], response.get_cart_amounts['grand_total'])
+
         }
 
 
@@ -147,7 +148,7 @@ $(document).ready(function () {
             document.getElementById("cart-item-" + cart_id).remove();
             checkEmptyCart();
           }
-          applyCartAmount(response.get_cart_amounts['subtotal'], response.get_cart_amounts['tax'], response.get_cart_amounts['grand_total'])
+          applyCartAmount(response.get_cart_amounts['subtotal'], response.get_cart_amounts['tax_dict'], response.get_cart_amounts['grand_total'])
 
         }
         else if (response.status == 'Failed') {
@@ -155,7 +156,7 @@ $(document).ready(function () {
         } else {
           $("#cart_counter").html(response.cart_counter['cart_count'])
           $("#qty-" + food_id).html(response.qty)
-          applyCartAmount(response.get_cart_amounts['subtotal'], response.get_cart_amounts['tax'], response.get_cart_amounts['grand_total'])
+          applyCartAmount(response.get_cart_amounts['subtotal'], response.get_cart_amounts['tax_dict'], response.get_cart_amounts['grand_total'])
         }
       }
     });
@@ -190,7 +191,7 @@ $(document).ready(function () {
           delete_cart_btn.closest('li').fadeOut(function () {
             $(this).remove();
           });
-          applyCartAmount(response.get_cart_amounts['subtotal'], response.get_cart_amounts['tax'], response.get_cart_amounts['grand_total'])
+          applyCartAmount(response.get_cart_amounts['subtotal'], response.get_cart_amounts['tax_dict'], response.get_cart_amounts['grand_total'])
           swal(response.message, '', 'success')
           checkEmptyCart();
         }
@@ -229,11 +230,19 @@ function checkEmptyCart() {
 }
 
 
-function applyCartAmount(subtotal, tax, grand_total) {
+function applyCartAmount(subtotal, tax_dict, grand_total) {
 
   if (window.location.pathname == '/marketplace/cart') {
     $("#subtotal").html(subtotal.toFixed(2))
-    $("#tax").html(tax.toFixed(2))
     $("#total").html(grand_total.toFixed(2))
+
+    for (key1 in tax_dict) {
+      // console.log(tax_dict[key1])
+      for (key2 in tax_dict[key1]) {
+        // console.log(tax_dict[key1][key2])
+        $("#tax-" + key1).html(tax_dict[key1][key2].toFixed(2))
+      }
+    }
+
   }
 }

@@ -173,13 +173,13 @@
 	</div>
 	<!-- Main Section End -->
 
-	<script>
+	{% comment %} <script>
 		var current_locate = sessionStorage.getItem("current_location");
     if(current_locate != ''){
       latlng_list = current_locate.split(',')
       document.getElementById("id_latitute").value=latlng_list[0]
       document.getElementById("id_longitude").value=latlng_list[1]
     }
-	</script>
+	</script> {% endcomment %}
 	
 	{% endblock %}

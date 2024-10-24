@@ -54,7 +54,7 @@
 <script>
     const x = document.getElementById("location");
     var current_locate = sessionStorage.getItem("current_location");
-    if(current_locate != ''){
+    if(current_locate != '' && current_locate != null){
       x.value = current_locate;
       latlng_list = current_locate.split(',')
       console.log(latlng_list)
