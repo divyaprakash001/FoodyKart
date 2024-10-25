@@ -10,8 +10,8 @@
           <div class="company-info">
             <div class="img-holder">
               <figure>
-                {% if vendor.user_profile.profile_picture %}
-                  <img src="{{vendor.user_profile.profile_picture.url}}" alt="profile picture">
+                {% if user_profile.profile_picture %}
+                  <img src="{{user_profile.profile_picture.url}}" alt="profile picture">
                 {% else %}
                   <img src="{% static "main/logo/profile.gif" %}" alt="profile picture">
                 {% endif %}

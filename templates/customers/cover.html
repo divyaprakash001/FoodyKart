@@ -1,5 +1,9 @@
 {% load static %}
-<div class="page-section restaurant-detail-image-section" style=" background: url({% static "main/extra-images/cover_photo.png" %}) no-repeat scroll 0 0 / cover;">
+{% if user_profile.cover_photo %}
+  <div class="page-section restaurant-detail-image-section" style=" background: url('{{user_profile.cover_photo.url}}') no-repeat scroll 0 0 / cover;">
+  {% else %}
+  <div class="page-section restaurant-detail-image-section" style=" background: url({% static "main/extra-images/cover_photo.png" %}) no-repeat scroll 0 0 / cover;">
+  {% endif %}
   <!-- Container Start -->
   <div class="container">
     <!-- Row Start -->
@@ -10,15 +14,19 @@
           <div class="company-info">
             <div class="img-holder">
               <figure>
-                <img src="{% static "main/extra-images/divya_customer.jpg" %}" alt="">
+                {% if user_profile.profile_picture %}
+                  <img src="{{user_profile.profile_picture.url}}" alt="">
+                {% else %}
+                  <img src="{% static "main/extra-images/divya_customer.jpg" %}" alt="">
+                {% endif %}
               </figure>
             </div>
 
             <div class="text-holder">
-              <span class="restaurant-title">Piyush Kumar</span>
+              <span class="restaurant-title">{{user.first_name}} {{user.last_name}}</span>
               <div class="text">
                 <i class="icon-location"></i>
-                <p>+91 8878768788</p>
+                <p>{{user.phone_number}}</p>
               </div>
             </div>
           </div>

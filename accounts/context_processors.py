@@ -1,3 +1,4 @@
+from accounts.models import UserProfile
 from vendor.models import Vendor
 from marketplace.models import Cart
 from django.conf import settings
@@ -8,6 +9,16 @@ def get_vendor(request):
   except:
     vendor=None
   return dict(vendor=vendor)
+
+def get_user_profile(request):
+  try:
+    if request.user.is_authenticated:
+      user_profile = UserProfile.objects.get(user=request.user)
+    else:
+      user_profile = None
+  except UserProfile.DoesNotExist:
+    pass
+  return dict(user_profile=user_profile)
 
 def get_google_api(request):
   return {'GOOGLE_API_KEY': settings.GOOGLE_API_KEY}
