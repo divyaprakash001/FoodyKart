@@ -40,10 +40,18 @@ def place_order(request):
       order.save()
       order.order_number = generate_order_number(order.id)
       order.save()
-      return redirect("place_order")
+      context={
+        'order':order,
+        'cart_items':cart_items
+      }
+      return render(request,"orders/place_order.html",context)
       # return redirect("orders:payment", order_id=order.order_number)
     else:
       print(form.errors)
 
 
   return render(request,"orders/place_order.html")
+
+def payments(request):
+
+  return HttpResponse("payment page")

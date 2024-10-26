@@ -18,7 +18,18 @@
                   
                   <div id="menu-item-list-6272" class="menu-itam-list">
                   
-                  
+                  <div class="billing-address">
+                    <div><b>{{order.name}}</b></div>
+                    <div>{{order.address}}</div>
+                    <div>{{order.city}} - {{order.pin_code}}</div>
+                    <div>{{order.country}} - {{order.country}}</div>
+                    <div><b>Phone:</b> {{order.phone}}</div>
+                    <div><b>Email:</b> {{order.email}}</div>
+                    <div><b>Payment:</b> {{order.payment_method}}</div>
+                    <br>
+                    <div><a href="{% url "checkout" %}" class="btn btn-outline-danger">Edit</a></div>
+                    <br>
+                  </div>
 
                     
                   </div>
@@ -38,6 +49,40 @@
               <div class="tab-content">
                 <div id="home" class="tab-pane in active">
                   <div class="menu-itam-holder">
+
+                    <div id="menu-item-list-6272" class="menu-itam-list">
+                      <ul>
+                        {% for cart_item in cart_items %}
+                          <li id="cart-item-{{cart_item.id}}">
+                            <div class="image-holder">
+                              {% if cart_item.fooditem.image %}
+                                <img src="{{cart_item.fooditem.image.url}}" alt="">
+                              {% else %}
+                                {% comment %} <img src="{% static "main/extra-images/cover-photo12-150x150.jpg" %}" alt=""> {% endcomment %}
+                              {% endif %}
+                            </div>
+                            <div class="text-holder">
+                              <h6>{{cart_item.fooditem}}</h6>
+                              {% comment %} <span>{{cart_item.fooditem.description}}</span> {% endcomment %}
+                              <a class="badge badge-warning" href="{% url "vendor_detail" cart_item.fooditem.vendor.vendor_slug %}">{{cart_item.fooditem.vendor}}</a>
+                            </div>
+                            
+                            <div class="price-holder">
+                              <span class="price">₹ {{cart_item.fooditem.price}}</span>
+  
+                              {% comment %} <a href="#" id="{{cart_item.id}}" class="decrease_cart" data-id="{{cart_item.fooditem.id}}" data-url="{% url "decrease_cart" cart_item.fooditem.id %}"  style="margin-right:28px; cursor: pointer;"><i class="icon-minus text-color"></i></a> {% endcomment %}
+                              <span>&nbsp;*&nbsp; </span>
+                              <label id="qty-{{cart_item.fooditem.id}}">{{cart_item.quantity}} QTY</label>
+                              {% comment %} <a href="#" class="add_to_cart" data-price={{cart_item.fooditem.price}} data-id="{{cart_item.fooditem.id}}" data-url="{% url "add_to_cart" cart_item.fooditem.id %}"><i class="icon-plus4 text-color"></i></a> {% endcomment %}
+                              {% comment %} <a href="#" class="delete_cart text-danger" data-url="{% url "delete_from_cart" cart_item.id %}"><i class="fa-solid fa-trash-can"></i></a> {% endcomment %}
+                            </div>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                      
+  
+                      
+                    </div>
                     
                     <div>
                       <ul>
@@ -69,7 +114,9 @@
                             <span id="total">{{grand_total|floatformat:2}}</span>
                           </span>
                         </li>
-                        <a href="{% url "checkout" %}" class="col-12 btn btn-lg btn-danger w-100 p-2 mt-3">PROCEED TO CHECKOUT</a>
+                        {% comment %} <a href="{% url "checkout" %}" class="col-12 btn btn-lg btn-danger w-100 p-2 mt-3">PROCEED TO CHECKOUT</a> {% endcomment %}
+                        <!-- Set up a container element for the button -->
+                        <div id="paypal-button-container"></div>
                       </ul>
                     </div>
                     
@@ -91,6 +138,91 @@
   </div>
 </div>
   
+
+<script src="https://www.paypal.com/sdk/js?client-id={{PAYPAL_CLIENT_ID}}&currency=USD"></script>
+<script>
+ 
+   
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+     let total = $("#total").html()
+  let order_number = "{{order.order_number}}"
+  let csrftoken = getCookie('csrftoken')
+  console.log('csrf==>',csrftoken)
+</script>
+<script> 
+ 
+  
+  paypal.Buttons({
+      // Set up the transaction
+      createOrder: function(data, actions) {
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: total
+                  }
+              }]
+          });
+      },
+
+      // Finalize the transaction
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+              // Successful capture! For demo purposes:
+              console.log(orderData)
+              var transaction = orderData.purchase_units[0].payments.captures[0];
+
+              var transaction_id = transaction.id
+              var status = orderData.status
+              var payment_method = 'PayPal'
+              
+              console.log(transaction.id)
+              sendTransaction(transaction_id, payment_method, status);
+
+              // Replace the above to show a success message within this page, e.g.
+              const element = document.getElementById('paypal-button-container');
+              element.innerHTML = '';
+              element.innerHTML = '<h4 class="text-center"><i class="fa fa-spinner fa-spin"></i> Please wait...</h4>';
+              // Or go to another URL:  actions.redirect('thank_you.html');
+          });
+      }
+
+
+  }).render('#paypal-button-container');
+
+  // send the data to the payment view
+  function sendTransaction(transaction_id, payment_method, status){
+    $.ajax({
+      type: 'POST',
+      url: '{% url "payments" %}',
+      data: {
+        'order_number':order_number,
+        'transaction_id': transaction_id,
+        'payment_method': payment_method,
+        'status': status,
+        'csrfmiddlewaretoken': csrftoken,
+        },
+        success: function(response) {
+          console.log('response===>',response)
+        }
+    })
+  }
+
+</script>
 
 
 
