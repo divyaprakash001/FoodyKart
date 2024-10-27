@@ -163,6 +163,7 @@
   let order_number = "{{order.order_number}}"
   let csrftoken = getCookie('csrftoken')
   console.log('csrf==>',csrftoken)
+  var order_complete = "{% url 'order_complete' %}"
 </script>
 <script> 
  
@@ -218,6 +219,9 @@
         },
         success: function(response) {
           console.log('response===>',response)
+          console.log(response.order_number)
+          console.log(response.transaction_id)
+          window.location.href = order_complete + '?order_no='+response.order_number+'&trans_id='+response.transaction_id;
         }
     })
   }
