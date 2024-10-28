@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from marketplace.context_processors import get_cart_amounts
 
 from marketplace.models import Cart
+from menu.models import FoodItem
 from orders.forms import OrderForm
 from orders.models import Order, OrderedFood, Payment
 from .utils import generate_order_number
@@ -16,6 +17,18 @@ def place_order(request):
   cart_count = cart_items.count()
   if cart_count <= 0:
     return redirect("marketplace")
+  
+  vendors_ids = []
+  for i in cart_items:
+    if i.fooditem.vendor.id not in vendors_ids:
+      vendors_ids.append(i.fooditem.vendor.id)
+  print(vendors_ids)
+  subtotal=0
+  for i in cart_items:
+    fooditem = FoodItem.objects.get(pk=i.fooditem.id, vendor_id__in = vendors_ids)
+    print(fooditem)
+    subtotal += (fooditem.price * i.quantity)
+
   
   subtotal = get_cart_amounts(request)['subtotal']
   total_tax = get_cart_amounts(request)['tax']
@@ -42,6 +55,7 @@ def place_order(request):
       order.payment_method = request.POST.get("payment_method")
       order.save()
       order.order_number = generate_order_number(order.id)
+      order.vendors.add(*vendors_ids)
       order.save()
       context={
         'order':order,

@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404,redirect
+from orders.models import Order, OrderedFood
 from vendor.models import Vendor
 from vendor.forms import VendorForm
 from accounts.forms import UserProfileForm
@@ -195,3 +196,19 @@ def delete_food(request,id):
   food.delete()
   messages.success(request,"Food Item Deleted Successfully.")
   return redirect("fooditems_by_category",food.category.id)
+
+def order_detail(request, order_number=None):
+  context={}
+  try:
+    order = Order.objects.get(order_number = order_number, is_ordered = True)
+    ordered_food = OrderedFood.objects.filter(order=order,fooditem__vendor = get_vendor(request))
+    print(order)
+    
+  except Exception as e:
+    print(e)
+    return redirect("vendor")
+  # vendor = Vendor.objects.get(user=request.user)
+  # order = Order.objects.filter(vendor=vendor)
+  context['order'] = order
+  context['ordered_food'] = ordered_food
+  return render(request,"vendor/order_detail.html",context)
