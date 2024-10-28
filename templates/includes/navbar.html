@@ -36,7 +36,7 @@
               {% endif %}
               <a class="btn btn-outline-danger text-uppercase fst-bold" href="{% url "marketplace" %}">Marketplace</a>
               {% if user.is_authenticated %}
-              <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url "myAccount" %}">My account</a>
+              <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url "myAccount" %}">Dashboard</a>
               <a class="cs-color cs-popup-joinus-btn login-popup text-danger" href="{% url "logout" %}">Logout <i class="fa-solid fa-power-off fa-lg"></i></a>
               {% else %}
               <a class="cs-color cs-popup-joinus-btn login-popup" data-toggle="modal" href="{% url "login" %}">Login</a> /

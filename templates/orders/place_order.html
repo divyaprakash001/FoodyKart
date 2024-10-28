@@ -116,7 +116,11 @@
                         </li>
                         {% comment %} <a href="{% url "checkout" %}" class="col-12 btn btn-lg btn-danger w-100 p-2 mt-3">PROCEED TO CHECKOUT</a> {% endcomment %}
                         <!-- Set up a container element for the button -->
-                        <div id="paypal-button-container"></div>
+                         {% if order.payment_method == 'PayPal' %}
+                          <div id="paypal-button-container"></div>
+                         {% elif order.payment_method == 'RazorPay' %}
+                           <button class="btn btn-danger w-100">RazorPay With RazorPay</button>
+                         {% endif %}
                       </ul>
                     </div>
                     

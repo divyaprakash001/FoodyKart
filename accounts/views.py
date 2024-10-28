@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+from orders.models import Order
 from .forms import UserForm
 from vendor.forms import VendorForm
 from .models import User,UserProfile
@@ -224,7 +226,14 @@ def myAccount(request):
 @login_required(login_url='login')
 @user_passes_test(check_role_customer)
 def customerDashboard(request):
-  return render(request,'accounts/customerDashboard.html')
+  context={}
+  orders = Order.objects.filter(user=request.user, is_ordered = True)
+  orders_count = orders.count()
+  recent_orders = orders.order_by("-created_at")[:5]
+  context['orders'] = orders
+  context['recent_orders'] = recent_orders
+  context['orders_count'] = orders_count
+  return render(request,'accounts/customerDashboard.html',context)
 
 
 @login_required(login_url='login')
