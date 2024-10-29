@@ -1,7 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from marketplace.context_processors import get_cart_amounts
-
+from django.contrib.sites.shortcuts import get_current_site
 from marketplace.models import Cart, Tax
 from menu.models import FoodItem
 from orders.forms import OrderForm
@@ -150,10 +150,14 @@ def payments(request):
         if i.fooditem.vendor.user.email not in to_emails:
           to_emails.append(i.fooditem.vendor.user.email)
       # print(to_emails)
+      ordered_food = OrderedFood.objects.filter(order=order)
+      
       context = {
         'order':order,
         'user':request.user,
-        'to_email':to_emails
+        'to_email':to_emails,
+        'ordered_food':ordered_food,
+        'domain': get_current_site(request),
       }
       send_notification(mail_subject,mail_template, context)
      # clear the cart if the payment is success
