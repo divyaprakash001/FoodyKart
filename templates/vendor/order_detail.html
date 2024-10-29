@@ -80,7 +80,7 @@
                                   </span>
                                 </li>
                 
-                                {% for key,value in tax_data.items %}
+                                {% for key,value in tax_dict.items %}
                                  {% for i,j in value.items %}
                                 <li style="list-style: none;">
                                   {{key}} <small> ({{i}}%)</small>
@@ -97,7 +97,7 @@
                                   TOTAL
                                   <span class="price float-right">
                                     <span class="currency">₹</span>
-                                    <span id="total">{{order.total|floatformat:2}}</span>
+                                    <span id="total">{{grand_total|floatformat:2}}</span>
                                   </span>
                                 </li>
                                 

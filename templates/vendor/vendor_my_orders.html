@@ -4,13 +4,13 @@
   {% include "includes/alerts.html" %}
     <!-- Main Section Start -->
     <div class="main-section">
-      {% include "customers/cover.html" %}
+      {% include "includes/cover.html" %}
       <div class="page-section account-header buyer-logged-in">
         <div class="container">
           <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
               {% comment %} sidebar here {% endcomment %}
-              {% include "includes/c_sidebar.html" %}
+              {% include "includes/v_sidebar.html" %}
             </div>
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
               <div class="user-dashboard loader-holder">
@@ -36,13 +36,13 @@
                             <tbody>
                               {% for order in orders %}
                               <tr>
-                                <td><a href="{% url "order_detail" order.order_number %}" class="text-dark"><b>{{order.order_number}}</b></a></td>
+                                <td><a href="{% url "vendor_order_detail" order.order_number %}" class="text-dark"><b>{{order.order_number}}</b></a></td>
                                 <td>{{order.name}}</td>
                                 {% comment %} <td>{{order.phone}}</td> {% endcomment %}
-                                <td>₹ {{order.total}}</td>
+                                <td>₹ {{order.get_total_by_vendor.grand_total | floatformat:2}}</td>
                                 <td>{{order.status}}</td>
                                 <td>{{order.created_at}}</td>
-                                <td><a href="{% url "order_detail" order.order_number %}" class="btn btn-danger">Details</a></td>
+                                <td><a href="{% url "vendor_order_detail" order.order_number %}" class="btn btn-danger">Details</a></td>
                               </tr>
                               
                               {% endfor %}

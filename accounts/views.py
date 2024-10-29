@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render, redirect
 
 from orders.models import Order
@@ -55,7 +56,7 @@ def registerUser(request):
       password = form.cleaned_data['password']
       user = User.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=password)
       user.role = User.CUSTOMER
-      print("user is created")
+      # print("user is created")
       user.save()
 
       # send verification email
@@ -94,7 +95,7 @@ def registerVendor(request):
       user.role = User.VENDOR
       user.save()
 
-      print("user created")
+      # print("user created")
       # form for vendor
       vendor = v_form.save(commit=False)
       vendor.user = user
@@ -103,7 +104,7 @@ def registerVendor(request):
       vendor.user_profile = user_profile
       vendor.vendor_slug = slugify(vendor_name)+'-'+str(user.id)
       vendor.save()
-      print(vendor.id)
+      # print(vendor.id)
 
       # sending the email verification
       mail_subject = 'Please activate your account.'
@@ -242,10 +243,25 @@ def vendorDashboard(request):
   context={}
   vendor = Vendor.objects.get(user=request.user)
   orders = Order.objects.filter(vendors__in = [vendor.id],is_ordered=True).order_by("-created_at")
-  recent_orders = orders[:5]
+  recent_orders = orders[:10]
+
+  # current month's revenue
+  current_month = datetime.datetime.now().month
+  current_month_orders = orders.filter(vendors__in=[vendor.id], created_at__month = current_month)
+
+  current_month_revenue = 0
+  for i in current_month_orders:
+    current_month_revenue += i.get_total_by_vendor()['grand_total']
+
+  total_revenue = 0
+  for i in orders:
+    total_revenue += i.get_total_by_vendor()['grand_total']
+
   context['orders'] = orders
   context['order_count'] = orders.count()
   context['recent_orders'] = recent_orders
+  context['total_revenue'] = total_revenue
+  context['current_month_revenue'] = current_month_revenue
   return render(request,'accounts/vendorDashboard.html',context)
 
 def forgot_password(request):

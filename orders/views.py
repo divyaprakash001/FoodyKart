@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from marketplace.context_processors import get_cart_amounts
 
-from marketplace.models import Cart
+from marketplace.models import Cart, Tax
 from menu.models import FoodItem
 from orders.forms import OrderForm
 from orders.models import Order, OrderedFood, Payment
@@ -22,12 +22,38 @@ def place_order(request):
   for i in cart_items:
     if i.fooditem.vendor.id not in vendors_ids:
       vendors_ids.append(i.fooditem.vendor.id)
-  print(vendors_ids)
+  # print(vendors_ids)
+
+# {"vendor_id":{"subtotal":{"tax_type":{"tax_percentage":"tax_amount"}}}}
+  get_tax = Tax.objects.filter(is_active=True)
   subtotal=0
+  total_data={}
+  k = {}
   for i in cart_items:
     fooditem = FoodItem.objects.get(pk=i.fooditem.id, vendor_id__in = vendors_ids)
-    print(fooditem)
-    subtotal += (fooditem.price * i.quantity)
+    v_id= fooditem.vendor.id
+    if v_id in k:
+      subtotal = k[v_id]
+      subtotal += (fooditem.price * i.quantity)
+      k[v_id] = subtotal
+    else:
+      subtotal = (fooditem.price * i.quantity)
+      k[v_id] = subtotal
+
+    # calculate the tax data
+    tax_dict = {}
+    for i in get_tax:
+      tax_type = i.tax_type
+      tax_percentage = i.tax_percentage
+      tax_amount = round((tax_percentage * subtotal)/100,2)
+      tax_dict.update({tax_type:{str(tax_percentage) : str(tax_amount)}})
+   
+
+    # construct total data
+    total_data.update({fooditem.vendor.id : {str(subtotal) : str(tax_dict)}})
+
+    
+
 
   
   subtotal = get_cart_amounts(request)['subtotal']
@@ -51,6 +77,7 @@ def place_order(request):
       order.user=request.user
       order.total = grand_total
       order.tax_data = tax_data
+      order.total_data = total_data
       order.total_tax = total_tax
       order.payment_method = request.POST.get("payment_method")
       order.save()
@@ -155,7 +182,7 @@ def order_complete(request):
       subtotal += (item.price * item.quantity)
 
     tax_data = order.tax_data
-    print(tax_data)
+    # print(tax_data)
 
 
     context['order'] = order

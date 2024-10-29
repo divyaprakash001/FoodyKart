@@ -62,7 +62,7 @@ def fooditems_by_category(request,pk=None):
   vendor = vendor = get_vendor(request)
   category = get_object_or_404(Category, pk = pk)
   fooditems = FoodItem.objects.filter(vendor=vendor,category=category)
-  print(fooditems)
+  # print(fooditems)
   context = {
     'category':category,
     'fooditems':fooditems,
@@ -142,7 +142,7 @@ def add_food(request):
       food = form.save(commit=False)
       food.vendor = vendor
       food.save()
-      print(food.id)  #here we will get food id
+      # print(food.id)  #here we will get food id
       food.slug = slugify(food_title)+"-"+str(food.id)
       food.save()
       messages.success(request,'Food has been added successfully.')
@@ -197,12 +197,15 @@ def delete_food(request,id):
   messages.success(request,"Food Item Deleted Successfully.")
   return redirect("fooditems_by_category",food.category.id)
 
+
+
+
 def order_detail(request, order_number=None):
   context={}
   try:
     order = Order.objects.get(order_number = order_number, is_ordered = True)
     ordered_food = OrderedFood.objects.filter(order=order,fooditem__vendor = get_vendor(request))
-    print(order)
+    # print(order)
     
   except Exception as e:
     print(e)
@@ -211,4 +214,15 @@ def order_detail(request, order_number=None):
   # order = Order.objects.filter(vendor=vendor)
   context['order'] = order
   context['ordered_food'] = ordered_food
+  context['subtotal'] = order.get_total_by_vendor()['subtotal']
+  context['tax_dict'] = order.get_total_by_vendor()['tax_dict']
+  context['grand_total'] = order.get_total_by_vendor()['grand_total']
   return render(request,"vendor/order_detail.html",context)
+
+def vendor_my_orders(request):
+  context={}
+  vendor = Vendor.objects.get(user=request.user)
+  orders = Order.objects.filter(vendors__in = [vendor.id],is_ordered=True).order_by("-created_at")
+
+  context['orders'] = orders
+  return render(request, "vendor/vendor_my_orders.html",context)
