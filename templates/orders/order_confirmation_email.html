@@ -53,7 +53,7 @@
       <td>Payment method: {{order.payment_method}}</td>
     </tr>
     <tr>
-      <td>Transaction ID: {{order.order.payment}}</td>
+      <td>Transaction ID: {{order.payment}}</td>
     </tr>
     <tr>
       <td>Total Amount is : {{order.total}}</td>
@@ -84,10 +84,32 @@
   </table>
 
 
+  {% comment %} order amount {% endcomment %}
+  <table bgcolor="#EAF0F6" width="100%" role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 20px 30px 20px 60px;">
+    <tbody>
+      <tr>
+        <td>Subtotal : ₹ {{customer_subtotal}}</td>
+      </tr>
+      {% for key, value in tax_data.items  %}
+        {% for i,j in value.items   %}
+          <tr>
+            <td>{{key}} <small>{{i}}%</small> : <span>₹ <span>{{j}}</span> </span></td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+      <tr>
+        <td>
+          Grand Total : ₹ {{order.total}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
   <table role="presentation" bgcolor="#C33332" width="100%">
       <tr>
         <td align="center" style="padding: 15px 15px; color: #fff;">
-          <p>© {% now "Y" %} FoodOnline Marketplace, All Rights Reserved.</p>
+          <p>© {% now "Y" %} FoodyKart Marketplace, All Rights Reserved.</p>
           <a href="http://{{domain}}" style="color:#fff;">Visit Website</a>      
         </td>
       </tr>
@@ -95,15 +117,3 @@
 </div>
 </body>
 </html>
-
-
-{% autoescape off %}
-
-Hi {{user.first_name}},
-
-Thank you for your order.
-Your order number is : {{order.order_number}}
-Transaction ID : {{order.payment.transaction_id}}
-Total Amount is : {{order.total}}
-
-{% endautoescape %}
