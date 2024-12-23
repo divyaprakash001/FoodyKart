@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
+# import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -104,6 +106,8 @@ DATABASES = {
     }
 }
 
+# DATABASES["default"] = dj_database_url.parse("postgresql://foodkart_user:hkqejYTm4kYlldHB2HgceyNfellaHBSt@dpg-csp27356l47c739860j0-a.oregon-postgres.render.com/foodkart")
+
 AUTH_USER_MODEL = 'accounts.User'
 
 # Password validation
@@ -171,11 +175,12 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
-
+# for google map
 GOOGLE_API_KEY=config('GOOGLE_API_KEY')
 
 # import os
 
+# for gdal
 os.environ['PATH'] = os.path.join(BASE_DIR, 'env', 'Lib', 'site-packages', 'osgeo') + ';' + os.environ['PATH']
 os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'env', 'Lib', 'site-packages', 'osgeo', 'data', 'proj')
 GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'env', 'Lib', 'site-packages', 'osgeo', 'gdal.dll')
@@ -184,3 +189,5 @@ GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'env', 'Lib', 'site-packages', 'osgeo
 PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
+# django_heroku.settings(locals())
